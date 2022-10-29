@@ -1,3 +1,3 @@
-class Players{
+class Player{
     
 }

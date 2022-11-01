@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class Card {
-    private ArrayList<Integer> packOfCards = new ArrayList<Integer>();
+    private ArrayList<Integer> packOfCards = new ArrayList<>();
 
     public ArrayList<Integer> getPackOfCards() throws IOException {
         return this.packOfCards;
@@ -20,34 +20,30 @@ class Card {
         ArrayList<Integer> packOfCards = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         Boolean flag = true;
-        int count = 0;
         int lineCount = 0;
+
+        File file = new File(fileName);
+        Scanner sc = new Scanner(file);
 
         while (br.readLine() != null) {
             lineCount++;
         }
 
-        while (flag == true && lineCount == (8 * playerCount) && count < lineCount) {
+        while (flag == true && lineCount == (8 * playerCount) && sc.hasNextLine()) {
 
-            try {
-                Integer.parseInt(br.readLine());
-            } catch (NumberFormatException e) {
+            if (sc.nextInt() < 0 && sc.nextInt() != 0) {
                 flag = false;
                 break;
             }
-
-            if (Integer.parseInt(br.readLine()) < 0 || Integer.parseInt(br.readLine()) != 0) {
-                flag = false;
-                break;
-            }
-
-            packOfCards.add(Integer.parseInt(br.readLine()));
-            count++;
+        
+            packOfCards.add(sc.nextInt());
+            System.out.println(sc.nextInt());
         }
 
         if (flag == true) {
             this.packOfCards = packOfCards;
-        } else {
+        } 
+        else {
             packOfCards.clear();
             System.out.println("Invalid file");
         }

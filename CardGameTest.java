@@ -32,7 +32,7 @@ public class CardGameTest {
     @Test
     public void testReadPackOfCards() throws IOException {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        File file = new File(classLoader.getResource("four.txt").getFile());
+        File file = new File(classLoader.getResource("valid.txt").getFile());
         assertTrue(file.exists());
 
         card.setPackOfCards(file.getName(), 4);   //DOESNT WORK, FILE NOT FOUND

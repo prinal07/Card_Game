@@ -37,7 +37,6 @@ class Card {
             }
         
             packOfCards.add(sc.nextInt());
-            System.out.println(sc.nextInt());
         }
 
         if (flag == true) {

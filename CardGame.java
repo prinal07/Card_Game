@@ -1,3 +1,6 @@
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -20,11 +23,17 @@ class CardGame {
     public static void inputData(){    
         System.out.println("Please enter the number of players:");
         playerCount = scanner.nextInt();
+        assertTrue(playerCount > 0);
 
         System.out.println("Please enter location of pack to load:");
         fileName = scanner.next();
+        assertNotNull(fileName);
     }
     
+    
+    /** 
+     * @throws IOException
+     */
     public static void dealing() throws IOException{
 
         pack = card.getPackOfCards();
@@ -44,6 +53,10 @@ class CardGame {
         }
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     public static void setup() throws IOException {
         card = new Card();
 
@@ -53,6 +66,11 @@ class CardGame {
         }
     }
 
+    
+    /** 
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         setup();
         dealing();

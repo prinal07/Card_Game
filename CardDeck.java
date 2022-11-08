@@ -8,13 +8,25 @@ class CardDeck{
         this.deckOfCards = pack;
         this.id = id;
     }
+    
+    /** 
+     * @return int
+     */
     public int getId() {
         return id;
     }
+    
+    /** 
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
   
+    
+    /** 
+     * @return ArrayList<Integer>
+     */
     public ArrayList<Integer> getDeckOfCards() {
         return deckOfCards;
     }
@@ -25,6 +37,11 @@ class CardDeck{
         this.deckOfCards = deckOfCards;
     } 
 
+    
+    /** 
+     * @param pack
+     * @param playerCount
+     */
     public void takeMineDeck(ArrayList<Integer> pack, int playerCount){
 
         System.out.println("ID:" + this.getId());

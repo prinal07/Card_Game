@@ -1,11 +1,7 @@
-import javax.annotation.processing.SupportedSourceVersion;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -13,10 +9,22 @@ import java.util.Scanner;
 class Card {
     private ArrayList<Integer> packOfCards = new ArrayList<>();
 
+    
+    /** 
+     * @return ArrayList<Integer>
+     * @throws IOException
+     */
     public ArrayList<Integer> getPackOfCards() throws IOException {
         return this.packOfCards;
     }
 
+    
+    /** 
+     * @param fileName
+     * @param playerCount
+     * @throws NumberFormatException
+     * @throws IOException
+     */
     public void setPackOfCards(String fileName, int playerCount) throws NumberFormatException, IOException {
 
         ArrayList<Integer> packOfCards = new ArrayList<>();

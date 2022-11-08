@@ -28,13 +28,19 @@ class CardGame {
     public static void dealing() throws IOException{
 
         pack = card.getPackOfCards();
+
         for (int i=1; i<playerCount + 1; i++){
             Player player = new Player(i, playerCount);
             playerList.add(player);
             player.takeMine(pack);
 
-            CardDeck cardDeck = new CardDeck(pack, i);
-            cardDeck.takeMine(pack, i);
+            System.out.println("Player hands done.");
+
+            CardDeck cardDeck = new CardDeck(i, pack);
+            cardDeck.takeMineDeck(pack, playerCount);
+
+            System.out.println("Player deck done.");
+
         }
     }
 

@@ -8,10 +8,11 @@ class Player{
     private int cardDeckId;
     private ArrayList<Integer> cardHand = new ArrayList<>();
     // private CardDeck myDeck;
-    public int playerCount;
+    private int playerCount;
 
     public Player(int id, int playerCount) {
         this.id = id;
+        this.playerCount = playerCount;
         // myDeck = new CardDeck();
     }
 
@@ -31,21 +32,14 @@ class Player{
     public void setOutputFile(File outputFile) {
         this.outputFile = outputFile;
     }
-    // public int getCardDeckId() {
-    //     return cardDeckId;
-    // }
-    // public void setCardDeckId(int cardDeckId) {
-    //     this.cardDeckId = cardDeckId;
-    // }
-
 
     public void takeMine(ArrayList<Integer> pack){
-
         int posTracker = this.getId() - 1;
         for (int i = 0; i< 4; i++){
-            cardHand.add(pack.get(posTracker));
+            this.cardHand.add(pack.get(posTracker));
             posTracker = posTracker + playerCount;
         }
+
     }
 
 

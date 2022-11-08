@@ -1,3 +1,4 @@
+import javax.annotation.processing.SupportedSourceVersion;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 class Card {
@@ -29,24 +31,33 @@ class Card {
             lineCount++;
         }
 
-        while (flag == true && lineCount == (8 * playerCount) && sc.hasNextLine()) {
 
-            if (sc.nextInt() < 0 && sc.nextInt() != 0) {
-                flag = false;
-                break;
+        while(flag == true && lineCount == (8*playerCount)){
+            try{
+                Integer localVal = sc.nextInt();
+                if(localVal > 0 || localVal == 0){
+                    packOfCards.add(localVal);
+                }
+                else{
+                    System.out.println("Invalid File");
+                    flag = false;
+                }
             }
-        
-            packOfCards.add(sc.nextInt());
-        }
+            catch (NoSuchElementException e){
+                if(packOfCards.size() == (8*playerCount)){
+                    flag = false;
+                    this.packOfCards = packOfCards;
+                }
+                else{
+                    System.out.println("Invalid File");
+                    flag = false;
+                }
 
-        if (flag == true) {
-            this.packOfCards = packOfCards;
-        } 
-        else {
-            packOfCards.clear();
-            System.out.println("Invalid file");
+            }
         }
+    }
+
 
     }
 
-}
+

@@ -65,11 +65,11 @@ class CardGame {
         playerList.get(0).takeCard();
         playerList.get(0).discardCard();
 
-//        playerList.get(0).takeCard();
-//        playerList.get(0).discardCard();
-//
-//        playerList.get(0).takeCard();
-//        playerList.get(0).discardCard();
+        playerList.get(0).takeCard();
+        playerList.get(0).discardCard();
+
+        playerList.get(0).takeCard();
+        playerList.get(0).discardCard();
 
     }
 

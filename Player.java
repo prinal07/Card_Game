@@ -102,7 +102,6 @@ class Player {
     }
 
     public void takeCard() throws IOException {
-        System.out.print("Player" + id + " took " + CardDeck.deckList.get(id-1).getTopCard() + " from deck " + CardDeck.deckList.get(id-1).getId());
         cardHand.add(CardDeck.deckList.get(id-1).getTopCard());
         FileWriter myWriter = new FileWriter(this.outputFile);
         myWriter.write("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
@@ -114,7 +113,9 @@ class Player {
         for (int i = 0; i < cardHand.size(); i++) {
             if (cardHand.get(i) != id) {
                 System.out.print("Player" + id + " discarded " + cardHand.get(i));
+                int discardedCard = cardHand.get(i);
                 cardHand.remove(i);
+                CardDeck.deckList.get(id).addToDeck(discardedCard);
                 break;
             }
             else{

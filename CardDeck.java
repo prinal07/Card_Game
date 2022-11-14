@@ -28,8 +28,14 @@ class CardDeck{
     }
     
     public int getTopCard(){
-        return deckOfCards.get(3);
+        int topCard = deckOfCards.get(0);
+        deckOfCards.remove(0);
+        return topCard;
     }
+    public void addToDeck(int discardedCard){
+        deckOfCards.add(discardedCard);
+    }
+
     /** 
      * @return ArrayList<Integer>
      */

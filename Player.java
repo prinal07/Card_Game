@@ -63,7 +63,8 @@ class Player {
             this.cardHand.add(pack.get(posTracker));
             posTracker = posTracker + playerCount;
         }
-
+        System.out.println("player " + this.id + " intial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
+                + cardHand.get(2) + " " + cardHand.get(3));
         FileWriter myWriter = new FileWriter(outputFile);
         myWriter.write("player " + this.id + " intial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));
@@ -89,7 +90,7 @@ class Player {
         try {
             this.outputFile = new File("player" + this.id + "output.txt");
             if (outputFile.createNewFile()) {
-                System.out.println("File created: " + outputFile.getName());
+                //System.out.println("File created: " + outputFile.getName());
             } else {
                 System.out.println("File already exists.");
             }
@@ -101,8 +102,8 @@ class Player {
     }
 
     public void takeCard() throws IOException {
-        System.out.print("Player" + id + " took " + CardDeck.deckList.get(id -1).getTopCard());
-        cardHand.add(CardDeck.deckList.get(id - 1).getTopCard());
+        System.out.print("Player" + id + " took " + CardDeck.deckList.get(id-1).getTopCard() + " from deck " + CardDeck.deckList.get(id-1).getId());
+        cardHand.add(CardDeck.deckList.get(id-1).getTopCard());
         FileWriter myWriter = new FileWriter(this.outputFile);
         myWriter.write("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3)  + cardHand.get(4));
@@ -122,6 +123,8 @@ class Player {
                 myWriter2.close();
             }
         }
+        System.out.println("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
+                + cardHand.get(2) + " " + cardHand.get(3));
         FileWriter myWriter = new FileWriter(this.outputFile);
         myWriter.write("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));

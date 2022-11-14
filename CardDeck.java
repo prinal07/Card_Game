@@ -5,8 +5,7 @@ class CardDeck{
     private ArrayList<Integer> deckOfCards = new ArrayList<Integer>();
     static ArrayList<CardDeck> deckList = new ArrayList<>();
 
-    public CardDeck(int id, ArrayList<Integer> pack) {
-        this.deckOfCards = pack;
+    public CardDeck(int id) {
         this.id = id;
     }
     
@@ -29,7 +28,7 @@ class CardDeck{
     }
     
     public int getTopCard(){
-        return deckOfCards.get(deckOfCards.get(0));
+        return deckOfCards.get(3);
     }
     /** 
      * @return ArrayList<Integer>
@@ -50,16 +49,12 @@ class CardDeck{
      * @param playerCount
      */
     public void takeMineDeck(ArrayList<Integer> pack, int playerCount){
-
-        System.out.println("ID:" + this.getId());
-        System.out.println("Player count:" + playerCount);
         int posTracker = this.getId() - 1 + (4*playerCount);
-        System.out.println("Position:" + posTracker);
-
         for (int i = 0; i< 4; i++){
-            deckOfCards.add(pack.get(posTracker));
-            System.out.println("Value at pos:" + pack.get(posTracker));
+            this.deckOfCards.add(pack.get(posTracker));
+            //System.out.println(pack.get(posTracker));
             posTracker = posTracker + playerCount;
         }
+        System.out.println("Deck "+this.getId()+" "+this.deckOfCards.toString());
     }
 }

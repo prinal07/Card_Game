@@ -39,14 +39,9 @@ class CardGame {
             playerList.add(player);
             player.takeMine(pack);
 
-            System.out.println("Player hands done.");
-            
-
-            CardDeck cardDeck = new CardDeck(i, pack);
+            CardDeck cardDeck = new CardDeck(i);
             CardDeck.deckList.add(cardDeck);
             cardDeck.takeMineDeck(pack, playerCount);
-
-            System.out.println("Player deck done.");
 
             player.checkHand();
 
@@ -69,6 +64,12 @@ class CardGame {
     public static void playGame() throws IOException{
         playerList.get(0).takeCard();
         playerList.get(0).discardCard();
+
+//        playerList.get(0).takeCard();
+//        playerList.get(0).discardCard();
+//
+//        playerList.get(0).takeCard();
+//        playerList.get(0).discardCard();
 
     }
 

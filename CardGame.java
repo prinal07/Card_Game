@@ -2,14 +2,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
-
-import javax.naming.ldap.HasControls;
-
-import org.junit.Before;
 
 class CardGame {
 
@@ -19,6 +13,8 @@ class CardGame {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Integer> pack;
     static ArrayList<Player> playerList = new ArrayList<>();
+    // static ArrayList<CardDeck> deckList = new ArrayList<>();
+
 
     public static void inputData(){    
         System.out.println("Please enter the number of players:");
@@ -44,11 +40,15 @@ class CardGame {
             player.takeMine(pack);
 
             System.out.println("Player hands done.");
+            
 
             CardDeck cardDeck = new CardDeck(i, pack);
+            CardDeck.deckList.add(cardDeck);
             cardDeck.takeMineDeck(pack, playerCount);
 
             System.out.println("Player deck done.");
+
+            player.checkHand();
 
         }
     }
@@ -66,7 +66,13 @@ class CardGame {
         }
     }
 
-    
+    public static void playGame() throws IOException{
+        playerList.get(0).takeCard();
+        playerList.get(0).discardCard();
+
+    }
+
+
     /** 
      * @param args
      * @throws IOException
@@ -74,5 +80,6 @@ class CardGame {
     public static void main(String[] args) throws IOException {
         setup();
         dealing();
+        playGame();
     }
 }

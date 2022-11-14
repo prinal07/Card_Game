@@ -3,7 +3,8 @@ import java.util.ArrayList;
 class CardDeck{
     private int id;
     private ArrayList<Integer> deckOfCards = new ArrayList<Integer>();
-    
+    static ArrayList<CardDeck> deckList = new ArrayList<>();
+
     public CardDeck(int id, ArrayList<Integer> pack) {
         this.deckOfCards = pack;
         this.id = id;
@@ -23,7 +24,13 @@ class CardDeck{
         this.id = id;
     }
   
+    public int popCard(){
+        return deckOfCards.get(deckOfCards.size()-1);
+    }
     
+    public int getTopCard(){
+        return deckOfCards.get(deckOfCards.get(0));
+    }
     /** 
      * @return ArrayList<Integer>
      */

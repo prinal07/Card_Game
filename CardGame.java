@@ -15,8 +15,7 @@ class CardGame {
     static ArrayList<Player> playerList = new ArrayList<>();
     // static ArrayList<CardDeck> deckList = new ArrayList<>();
 
-
-    public static void inputData(){    
+    public static void inputData() {
         System.out.println("Please enter the number of players:");
         playerCount = scanner.nextInt();
         assertTrue(playerCount > 0);
@@ -25,16 +24,15 @@ class CardGame {
         fileName = scanner.next();
         assertNotNull(fileName);
     }
-    
-    
-    /** 
+
+    /**
      * @throws IOException
      */
-    public static void dealing() throws IOException{
+    public static void dealing() throws IOException {
 
         pack = card.getPackOfCards();
 
-        for (int i=1; i<playerCount + 1; i++){
+        for (int i = 1; i < playerCount + 1; i++) {
             Player player = new Player(i, playerCount);
             playerList.add(player);
             player.takeMine(pack);
@@ -48,8 +46,7 @@ class CardGame {
         }
     }
 
-    
-    /** 
+    /**
      * @throws IOException
      */
     public static void setup() throws IOException {
@@ -61,20 +58,49 @@ class CardGame {
         }
     }
 
-    public static void playGame() throws IOException{
-        playerList.get(0).takeCard();
-        playerList.get(0).discardCard();
+    public static void playGame() throws IOException {
+
+        playerList.get(3).takeCard();
+        playerList.get(3).discardCard();
+
+        for (int i : CardDeck.deckList.get(0).getDeckOfCards()) {
+            System.out.println("Deck 1 values " + i);
+        }
 
         playerList.get(0).takeCard();
         playerList.get(0).discardCard();
 
+        for (int j : CardDeck.deckList.get(0).getDeckOfCards()) {
+            System.out.println("Deck 1 values " + j);
+        }
+
+        playerList.get(3).takeCard();
+        playerList.get(3).discardCard();
+
+        for (int k : CardDeck.deckList.get(0).getDeckOfCards()) {
+            System.out.println("Deck 1 values " + k);
+        }
+
         playerList.get(0).takeCard();
         playerList.get(0).discardCard();
+
+        for (int l : CardDeck.deckList.get(0).getDeckOfCards()) {
+            System.out.println("Deck 1 values " + l);
+        }
+
+        // playerList.get(0).takeCard();
+        // playerList.get(0).discardCard();
+
+        // playerList.get(0).takeCard();
+        // playerList.get(0).discardCard();
+
+        for (int i : CardDeck.deckList.get(0).getDeckOfCards()) {
+            System.out.println("Deck 1 values " + i);
+        }
 
     }
 
-
-    /** 
+    /**
      * @param args
      * @throws IOException
      */

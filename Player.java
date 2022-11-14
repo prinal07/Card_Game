@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +10,6 @@ class Player {
     private String logFileName = "player" + id + "output.txt";
     public File outputFile;
     private ArrayList<Integer> cardHand = new ArrayList<>();
-    // private CardDeck myDeck;
     private int playerCount;
 
     public Player(int id, int playerCount) {
@@ -65,10 +65,9 @@ class Player {
         }
         System.out.println("player " + this.id + " intial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));
-        FileWriter myWriter = new FileWriter(outputFile);
-        myWriter.write("player " + this.id + " intial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
+
+        writeToLogFile(outputFile, "player " + this.id + " intial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));
-        myWriter.close();
     }
 
     public void checkHand() throws IOException {
@@ -80,9 +79,7 @@ class Player {
             }
         }
         if (flag == true) {
-            FileWriter myWriter = new FileWriter(outputFile);
-            myWriter.write("player " + this.id + " wins");
-            myWriter.close();
+            writeToLogFile(outputFile, "player " + this.id + " wins");
         }
     }
 
@@ -90,7 +87,7 @@ class Player {
         try {
             this.outputFile = new File("player" + this.id + "output.txt");
             if (outputFile.createNewFile()) {
-                //System.out.println("File created: " + outputFile.getName());
+                // System.out.println("File created: " + outputFile.getName());
             } else {
                 System.out.println("File already exists.");
             }
@@ -102,33 +99,51 @@ class Player {
     }
 
     public void takeCard() throws IOException {
-        cardHand.add(CardDeck.deckList.get(id-1).getTopCard());
-        FileWriter myWriter = new FileWriter(this.outputFile);
-        myWriter.write("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
-                + cardHand.get(2) + " " + cardHand.get(3)  + cardHand.get(4));
-        myWriter.close();
+        int localTopCard = CardDeck.deckList.get(id - 1).getTopCard();
+        cardHand.add(localTopCard);
+        writeToLogFile(outputFile, "player " + this.id + " draws a " + localTopCard + " from deck " + this.id);
+
+       
     }
 
     public void discardCard() throws IOException {
+        int deckId;
+        if(this.id == playerCount){
+            deckId = 1;
+        }
+        else{
+            deckId = this.id + 1;
+        }
+
         for (int i = 0; i < cardHand.size(); i++) {
             if (cardHand.get(i) != id) {
                 System.out.print("Player" + id + " discarded " + cardHand.get(i));
                 int discardedCard = cardHand.get(i);
+                writeToLogFile(outputFile,
+                        "player " + this.id + " discards a " + discardedCard + " to deck " + (deckId));
                 cardHand.remove(i);
-                CardDeck.deckList.get(id).addToDeck(discardedCard);
+                CardDeck.deckList.get(deckId).addToDeck(discardedCard);
                 break;
-            }
-            else{
-                FileWriter myWriter2 = new FileWriter(outputFile);
-                myWriter2.write("player " + this.id + " wins");
-                myWriter2.close();
+            } else {
+                checkHand();
             }
         }
         System.out.println("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));
-        FileWriter myWriter = new FileWriter(this.outputFile);
-        myWriter.write("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
-                + cardHand.get(2) + " " + cardHand.get(3));
-        myWriter.close();
+
+        writeToLogFile(outputFile,
+                "player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
+                        + cardHand.get(2) + " " + cardHand.get(3));
     }
+
+    public void writeToLogFile(File fileName, String data) throws IOException {
+        BufferedWriter br;
+        FileWriter fr = new FileWriter(fileName, true);
+        br = new BufferedWriter(fr);
+        br.write(data);
+        br.newLine();
+        br.close();
+        fr.close();
+    }
+
 }

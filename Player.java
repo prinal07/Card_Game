@@ -63,10 +63,8 @@ class Player {
             this.cardHand.add(pack.get(posTracker));
             posTracker = posTracker + playerCount;
         }
-        System.out.println("player " + this.id + " intial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
-                + cardHand.get(2) + " " + cardHand.get(3));
 
-        writeToLogFile(outputFile, "player " + this.id + " intial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
+        writeToLogFile(outputFile, "player " + this.id + " initial hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));
     }
 
@@ -80,6 +78,7 @@ class Player {
         }
         if (flag == true) {
             writeToLogFile(outputFile, "player " + this.id + " wins");
+
         }
     }
 
@@ -98,7 +97,7 @@ class Player {
 
     }
 
-    public void takeCard() throws IOException {
+    public synchronized void takeCard() throws IOException {
         int localTopCard = CardDeck.deckList.get(id - 1).getTopCard();
         cardHand.add(localTopCard);
         writeToLogFile(outputFile, "player " + this.id + " draws a " + localTopCard + " from deck " + this.id);
@@ -106,7 +105,7 @@ class Player {
        
     }
 
-    public void discardCard() throws IOException {
+    public synchronized void discardCard() throws IOException {
         int deckId;
         if(this.id == playerCount){
             deckId = 1;
@@ -122,7 +121,7 @@ class Player {
                 writeToLogFile(outputFile,
                         "player " + this.id + " discards a " + discardedCard + " to deck " + (deckId));
                 cardHand.remove(i);
-                CardDeck.deckList.get(deckId).addToDeck(discardedCard);
+                CardDeck.deckList.get(deckId-1).addToDeck(discardedCard);
                 checkHand();
                 break;
             } else {
@@ -131,7 +130,7 @@ class Player {
         }
         System.out.println("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));
-        System.out.println(" Deck "+deckId+ CardDeck.deckList.get(deckId).getDeckOfCards().toString());
+        System.out.println("a Deck "+deckId+ CardDeck.deckList.get(deckId-1).getDeckOfCards().toString());
 
         writeToLogFile(outputFile,
                 "player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "

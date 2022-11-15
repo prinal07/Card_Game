@@ -60,9 +60,7 @@ class CardDeck{
         int posTracker = this.getId() - 1 + (4*playerCount);
         for (int i = 0; i< 4; i++){
             this.deckOfCards.add(pack.get(posTracker));
-            //System.out.println(pack.get(posTracker));
             posTracker = posTracker + playerCount;
         }
-        System.out.println("Deck "+this.getId()+" "+this.deckOfCards.toString());
     }
 }

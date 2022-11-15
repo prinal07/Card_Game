@@ -13,6 +13,7 @@ class CardGame {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Integer> pack;
     static ArrayList<Player> playerList = new ArrayList<>();
+    boolean done = false;
     // static ArrayList<CardDeck> deckList = new ArrayList<>();
 
     public static void inputData() {
@@ -58,20 +59,30 @@ class CardGame {
         }
     }
 
+
     public static void playGame() throws IOException {
+        boolean done = false;
+        for(int i = 0; i < playerList.size(); i++){
+            Player player = playerList.get(i);
+            Thread thread = new Thread (new Runnable(){
+                public void run(){
+                    for(int x = 0; x < 10; x++){
+                        try {
+                            player.takeCard();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            player.discardCard();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-        playerList.get(0).takeCard();
-        playerList.get(0).discardCard();
-
-        playerList.get(3).takeCard();
-        playerList.get(3).discardCard();
-
-        playerList.get(0).takeCard();
-        playerList.get(0).discardCard();
-
-        playerList.get(3).takeCard();
-        playerList.get(3).discardCard();
-
+                    }
+                }
+            });
+            thread.start();
+        }
 
     }
 

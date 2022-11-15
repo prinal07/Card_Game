@@ -33,14 +33,14 @@ class CardDeck{
         return topCard;
     }
     public void addToDeck(int discardedCard){
-        deckOfCards.add(discardedCard);
+        this.deckOfCards.add(discardedCard);
     }
 
     /** 
      * @return ArrayList<Integer>
      */
     public ArrayList<Integer> getDeckOfCards() {
-        return deckOfCards;
+        return this.deckOfCards;
     }
     /**
      * @param deckOfCards

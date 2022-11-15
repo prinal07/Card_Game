@@ -34,7 +34,7 @@ class CardDeck{
     }
     public void addToDeck(int discardedCard){
         this.deckOfCards.add(discardedCard);
-        System.out.println("Deck "+this.getId()+" "+this.deckOfCards.toString());
+        //System.out.println("Deck "+this.getId()+" "+this.deckOfCards.toString());
 
     }
 

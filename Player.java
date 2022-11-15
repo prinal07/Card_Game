@@ -78,9 +78,9 @@ class Player {
                         + cardHand.get(2) + " " + cardHand.get(3));
     }
 
-    public void checkHand() throws IOException {
+    public synchronized void checkHand() throws IOException {
         Boolean flag = true;
-        for (int y = 1; y < cardHand.size() - 1; y++) {
+        for (int y = 1; y < cardHand.size() + 1; y++) {
             if (cardHand.get(y) != cardHand.get(y - 1)) {
                 flag = false;
                 break;
@@ -132,7 +132,6 @@ class Player {
         int localTopCard = CardDeck.deckList.get(id - 1).getTopCard();
         cardHand.add(localTopCard);
         writeToLogFile(outputFile, "player " + this.id + " draws a " + localTopCard + " from deck " + this.id);
-
     }
 
     public synchronized void discardCard() throws IOException {
@@ -150,11 +149,11 @@ class Player {
                 writeToLogFile(outputFile,
                         "player " + this.id + " discards a " + discardedCard + " to deck " + (deckId));
                 cardHand.remove(i);
-                CardDeck.deckList.get(deckId - 1).addToDeck(discardedCard);
-                checkHand();
+                CardDeck.deckList.get(deckId - 1).addToDeck(discardedCard); 
+                // checkHand();
                 break;
             } else {
-                checkHand();
+                // checkHand();
             }
         }
         System.out.println("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "

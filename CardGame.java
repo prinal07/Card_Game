@@ -13,7 +13,7 @@ class CardGame {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Integer> pack;
     static ArrayList<Player> playerList = new ArrayList<>();
-    static boolean winningBool = false;
+    static volatile boolean winningBool = false;
     static int winnerId;
 
     // static ArrayList<CardDeck> deckList = new ArrayList<>();
@@ -77,7 +77,6 @@ class CardGame {
                             System.out.println(
                                     Thread.currentThread().getName()
                                             + "is throwing an excepting while taking a card");
-                            ;
                             e.printStackTrace();
                         }
                         try {
@@ -98,37 +97,31 @@ class CardGame {
 
                         }
                     }
-
-                    if(winningBool){
-                        for(Player p: playerList){
-                            if(p.isWinner()){
-                                try {
-                                    p.winner();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                continue;
+                    for (Player p : playerList) {
+                        if (p.isWinner()) {
+                            try {
+                                p.winner();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                            else{
-                                try {
-                                    p.loser();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                            continue;
+                        } else {
+                            try {
+                                p.loser();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         }
+            
                     }
-                    
+
                 }
             });
             thread.setName(threadName);
             thread.start();
         }
-
-    }
-
-    public void endGame(){
         
+
     }
 
     /**

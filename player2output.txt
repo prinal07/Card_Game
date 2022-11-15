@@ -1,1 +1,0 @@
-player 2 intial hand 2 6 10 14

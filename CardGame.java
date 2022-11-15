@@ -60,43 +60,18 @@ class CardGame {
 
     public static void playGame() throws IOException {
 
-        playerList.get(3).takeCard();
-        playerList.get(3).discardCard();
-
-        for (int i : CardDeck.deckList.get(0).getDeckOfCards()) {
-            System.out.println("Deck 1 values " + i);
-        }
-
         playerList.get(0).takeCard();
         playerList.get(0).discardCard();
-
-        for (int j : CardDeck.deckList.get(0).getDeckOfCards()) {
-            System.out.println("Deck 1 values " + j);
-        }
 
         playerList.get(3).takeCard();
         playerList.get(3).discardCard();
 
-        for (int k : CardDeck.deckList.get(0).getDeckOfCards()) {
-            System.out.println("Deck 1 values " + k);
-        }
-
         playerList.get(0).takeCard();
         playerList.get(0).discardCard();
 
-        for (int l : CardDeck.deckList.get(0).getDeckOfCards()) {
-            System.out.println("Deck 1 values " + l);
-        }
+        playerList.get(3).takeCard();
+        playerList.get(3).discardCard();
 
-        // playerList.get(0).takeCard();
-        // playerList.get(0).discardCard();
-
-        // playerList.get(0).takeCard();
-        // playerList.get(0).discardCard();
-
-        for (int i : CardDeck.deckList.get(0).getDeckOfCards()) {
-            System.out.println("Deck 1 values " + i);
-        }
 
     }
 

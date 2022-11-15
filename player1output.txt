@@ -1,7 +1,0 @@
-player 1 intial hand 1 5 9 13
-player 1 draws a 17 from deck 1
-player 1 discards a 5 to deck 2
-player 1 current hand 1 9 13 17
-player 1 draws a 21 from deck 1
-player 1 discards a 9 to deck 2
-player 1 current hand 1 13 17 21

@@ -123,6 +123,7 @@ class Player {
                         "player " + this.id + " discards a " + discardedCard + " to deck " + (deckId));
                 cardHand.remove(i);
                 CardDeck.deckList.get(deckId).addToDeck(discardedCard);
+                checkHand();
                 break;
             } else {
                 checkHand();
@@ -130,6 +131,7 @@ class Player {
         }
         System.out.println("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                 + cardHand.get(2) + " " + cardHand.get(3));
+        System.out.println(" Deck "+deckId+ CardDeck.deckList.get(deckId).getDeckOfCards().toString());
 
         writeToLogFile(outputFile,
                 "player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "

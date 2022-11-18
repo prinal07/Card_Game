@@ -3,7 +3,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 class CardGame {
@@ -18,8 +17,6 @@ class CardGame {
     static boolean winningBool = false;
     static int winnerId;
     static boolean gameRunning;
-
-    // static ArrayList<CardDeck> deckList = new ArrayList<>();
 
     public static void inputData() {
         System.out.println("Please enter the number of players:");
@@ -47,6 +44,10 @@ class CardGame {
             CardDeck.deckList.add(cardDeck);
             cardDeck.takeMineDeck(pack, playerCount);
 
+            for (int j: cardDeck.getDeckOfCards()){
+            System.out.println("DECK CARDS" + j);
+            }
+            System.out.println("DECK DONE");
             player.checkHand();
 
         }
@@ -61,35 +62,6 @@ class CardGame {
         while (card.getPackOfCards().isEmpty() == true) {
             inputData();
             card.setPackOfCards(fileName, playerCount);
-        }
-    }
-
-    public static void newPlayGame() {
-        for (int i = 0; i < playerList.size(); i++) {
-            // String threadName = "Player " + (i+1);
-            // int tempId = i+1;
-            // Player player = playerList.get(i);
-            Thread thread = new Thread(new InterruptionThread(i));
-            thread.start();
-        }
-    }
-
-    public static void endGamePrinting() {
-        for (Player p : playerList) {
-            if (p.isWinner()) {
-                try {
-                    p.winner();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                continue;
-            } else {
-                try {
-                    p.loser();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
@@ -121,8 +93,6 @@ class CardGame {
                 }
             }
         }
-        
-
     }
 
 
@@ -133,7 +103,6 @@ class CardGame {
     public static void main(String[] args) throws IOException {
         setup();
         dealing();
-        newPlayGame();
         playGame();
     }
 }

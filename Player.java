@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 class Player {
@@ -13,8 +15,9 @@ class Player {
     private int playerCount;
     private boolean winner = false;
 
+
     public boolean isWinner() {
-        return winner;
+        return this.winner;
     }
 
     public void setWinner(boolean winner) {
@@ -78,19 +81,21 @@ class Player {
                         + cardHand.get(2) + " " + cardHand.get(3));
     }
 
+    public boolean verifyAllEqualUsingStream(ArrayList<Integer> list) {
+        return list.stream()
+          .distinct()
+          .count() <= 1;
+    }
+
     public synchronized void checkHand() throws IOException {
-        Boolean flag = true;
-        for (int y = 1; y < cardHand.size() + 1; y++) {
-            if (cardHand.get(y) != cardHand.get(y - 1)) {
-                flag = false;
-                break;
-            }
-        }
-        if (flag == true) {
+        if(verifyAllEqualUsingStream(cardHand)){
             this.winner = true;
             CardGame.winnerId = this.id;
             CardGame.winningBool = true;
-           
+            System.out.println(" IT IS EQUAL");
+        }
+        else{
+            this.winner = false;
         }
     }
 
@@ -111,7 +116,6 @@ class Player {
                 + cardHand.get(2) + " " + cardHand.get(3));
 
     }
-
 
     public void createFile() {
         try {

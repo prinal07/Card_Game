@@ -3,6 +3,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 class CardGame {
@@ -15,6 +16,7 @@ class CardGame {
     static ArrayList<Player> playerList = new ArrayList<>();
     static volatile boolean winningBool = false;
     static int winnerId;
+    static ArrayList<Thread> threadMap = new ArrayList<>();
 
     // static ArrayList<CardDeck> deckList = new ArrayList<>();
 
@@ -61,10 +63,40 @@ class CardGame {
         }
     }
 
+    public static void newPlayGame() {
+        for (int i = 0; i < playerList.size(); i++) {
+            // String threadName = "Player " + (i+1);
+            // int tempId = i+1;
+            // Player player = playerList.get(i);
+            Thread thread = new Thread(new InterruptionThread(i));
+            thread.start();
+        }
+    }
+
+    public static void endGamePrinting() {
+        for (Player p : playerList) {
+            if (p.isWinner()) {
+                try {
+                    p.winner();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                continue;
+            } else {
+                try {
+                    p.loser();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public static void playGame() throws IOException {
         for (int i = 0; i < playerList.size(); i++) {
 
-            String threadName = "Player " + i;
+            String threadName = "Player " + (i + 1);
+            int tempId = i + 1;
             Player player = playerList.get(i);
 
             Thread thread = new Thread(new Runnable() {
@@ -97,6 +129,7 @@ class CardGame {
 
                         }
                     }
+
                     for (Player p : playerList) {
                         if (p.isWinner()) {
                             try {
@@ -112,15 +145,16 @@ class CardGame {
                                 e.printStackTrace();
                             }
                         }
-            
+
                     }
 
                 }
             });
             thread.setName(threadName);
+            threadMap.add(thread);
             thread.start();
+
         }
-        
 
     }
 
@@ -131,6 +165,6 @@ class CardGame {
     public static void main(String[] args) throws IOException {
         setup();
         dealing();
-        playGame();
+        newPlayGame();
     }
 }

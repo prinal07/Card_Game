@@ -14,9 +14,10 @@ class CardGame {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Integer> pack;
     static ArrayList<Player> playerList = new ArrayList<>();
-    static volatile boolean winningBool = false;
+    static ArrayList<Thread> threads = new ArrayList<>();
+    static boolean winningBool = false;
     static int winnerId;
-    static ArrayList<Thread> threadMap = new ArrayList<>();
+    static boolean gameRunning;
 
     // static ArrayList<CardDeck> deckList = new ArrayList<>();
 
@@ -94,69 +95,36 @@ class CardGame {
 
     public static void playGame() throws IOException {
         for (int i = 0; i < playerList.size(); i++) {
-
-            String threadName = "Player " + (i + 1);
-            int tempId = i + 1;
             Player player = playerList.get(i);
-
-            Thread thread = new Thread(new Runnable() {
-                public void run() {
-                    while (!winningBool) {
-
-                        try {
-                            player.takeCard();
-                        } catch (IOException e) {
-                            System.out.println(
-                                    Thread.currentThread().getName()
-                                            + "is throwing an excepting while taking a card");
-                            e.printStackTrace();
-                        }
-                        try {
-                            player.discardCard();
-                        } catch (IOException e) {
-                            System.out.println(Thread.currentThread().getName()
-                                    + "is throwing an excepting while discarding a card");
-                            ;
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            player.checkHand();
-                        } catch (IOException e) {
-                            System.out.println(
-                                    Thread.currentThread().getName()
-                                            + "is throwing an excepting while checking hand");
-
-                        }
-                    }
-
-                    for (Player p : playerList) {
-                        if (p.isWinner()) {
-                            try {
-                                p.winner();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            continue;
-                        } else {
-                            try {
-                                p.loser();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                }
-            });
-            thread.setName(threadName);
-            threadMap.add(thread);
+            Thread thread = new Thread(player);
+            threads.add(thread);
             thread.start();
-
         }
+        while(!winningBool){
+            System.out.println("Running");
+        }
+        for (Thread t : threads){
+            t.interrupt();
+        }
+        for (Player p : playerList) {
+            if (p.isWinner()) {
+                try {
+                    p.winner();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    p.loser();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
 
     }
+
 
     /**
      * @param args
@@ -166,5 +134,6 @@ class CardGame {
         setup();
         dealing();
         newPlayGame();
+        playGame();
     }
 }

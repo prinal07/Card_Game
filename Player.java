@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-class Player {
+class Player implements Runnable {
     private int id;
     private String logFileName = "player" + id + "output.txt";
     public File outputFile;
@@ -88,18 +88,23 @@ class Player {
     }
 
     public synchronized void checkHand() throws IOException {
-        if(verifyAllEqualUsingStream(cardHand)){
+        Boolean flag = true;
+        for (int y = 1; y <= cardHand.size()-1; y++) {
+            if (cardHand.get(y) != cardHand.get(y - 1)) {
+                flag = false;
+            }
+        }
+        if (flag == true) {
+            CardGame.winningBool = true;
             this.winner = true;
             CardGame.winnerId = this.id;
             CardGame.winningBool = true;
-            System.out.println(" IT IS EQUAL");
-        }
-        else{
-            this.winner = false;
+           
         }
     }
 
     public void winner() throws IOException {
+
         writeToLogFile(outputFile, "player " + this.id + " wins");
         writeToLogFile(outputFile, "player " + this.id + " exits");
         writeToLogFile(outputFile,
@@ -148,25 +153,24 @@ class Player {
 
         for (int i = 0; i < cardHand.size(); i++) {
             if (cardHand.get(i) != id) {
-                System.out.print("Player" + id + " discarded " + cardHand.get(i));
+                //System.out.print("Player" + id + " discarded " + cardHand.get(i));
                 int discardedCard = cardHand.get(i);
                 writeToLogFile(outputFile,
                         "player " + this.id + " discards a " + discardedCard + " to deck " + (deckId));
                 cardHand.remove(i);
-                CardDeck.deckList.get(deckId - 1).addToDeck(discardedCard); 
-                // checkHand();
+                CardDeck.deckList.get(deckId - 1).addToDeck(discardedCard);
                 break;
-            } else {
-                // checkHand();
             }
         }
-        System.out.println("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
-                + cardHand.get(2) + " " + cardHand.get(3));
-        System.out.println("a Deck " + deckId + CardDeck.deckList.get(deckId - 1).getDeckOfCards().toString());
+        checkHand();
+//        System.out.println("player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
+//                + cardHand.get(2) + " " + cardHand.get(3));
+//        System.out.println("a Deck " + deckId + CardDeck.deckList.get(deckId - 1).getDeckOfCards().toString());
 
         writeToLogFile(outputFile,
                 "player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                         + cardHand.get(2) + " " + cardHand.get(3));
+
     }
 
     public void writeToLogFile(File fileName, String data) throws IOException {
@@ -179,4 +183,35 @@ class Player {
         fr.close();
     }
 
+
+    @Override
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                takeCard();
+            } catch (IOException e) {
+                System.out.println(
+                        Thread.currentThread().getName()
+                                + "is throwing an excepting while taking a card");
+                e.printStackTrace();
+            }
+            try {
+                discardCard();
+            } catch (IOException e) {
+                System.out.println(Thread.currentThread().getName()
+                        + "is throwing an excepting while discarding a card");
+                ;
+                e.printStackTrace();
+            }
+
+            try {
+                checkHand();
+            } catch (IOException e) {
+                System.out.println(
+                        Thread.currentThread().getName()
+                                + "is throwing an excepting while checking hand");
+
+            }
+        }
+    }
 }

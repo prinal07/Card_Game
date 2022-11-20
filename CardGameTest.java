@@ -13,13 +13,14 @@ public class CardGameTest{
     ArrayList<Integer> test;
     String [] stringsValues = {"hello", "", " "};
     int [] intValues = {-2, 0, 2};
+    File file;
 
     /** 
      * @throws IOException
      */
-    @Before
-    public void testSetup() throws IOException {
-        File file = new File("valid.txt");
+    @Before public void testSetup() throws IOException {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File file = new File(classLoader.getResource("valid.txt").getFile());
         cardGame = new CardGame();
         card = new Card();
         int playerCount = intValues[0];
@@ -49,11 +50,11 @@ public class CardGameTest{
      */
     @Test
     public void testReadPackOfCards() throws IOException {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        File file = new File(classLoader.getResource("valid.txt").getFile());
+        // File file = new File("C:/Users/prina/Desktop/Card_Game/valid.txt");
         assertTrue(file.exists());
-
-        card.setPackOfCards(file.getName(), 4);   //DOESNT WORK, FILE NOT FOUND
+        String filename = file.getName();
+        assertNotNull(filename);
+        card.setPackOfCards(filename, 4);   //DOESNT WORK, FILE NOT FOUND
         test = card.getPackOfCards();
         assertNotNull(test);
 

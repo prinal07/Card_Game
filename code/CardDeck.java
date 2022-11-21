@@ -1,6 +1,7 @@
+package code;
 import java.util.ArrayList;
 
-class CardDeck{
+public class CardDeck{
     private int id;
     private ArrayList<Integer> deckOfCards = new ArrayList<Integer>();
     static ArrayList<CardDeck> deckList = new ArrayList<>();

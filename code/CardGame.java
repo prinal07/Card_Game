@@ -1,11 +1,16 @@
+package code;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class CardGame {
+import testing.CardGameInterface;
+
+public class CardGame implements CardGameInterface{
 
     static Card card;
     static int playerCount;
@@ -16,7 +21,7 @@ class CardGame {
     static ArrayList<Thread> threads = new ArrayList<>();
     static boolean winningBool = false;
     static int winnerId;
-    static boolean gameRunning;
+    // static boolean gameRunning;
 
     public static void inputData() {
         System.out.println("Please enter the number of players:");
@@ -26,6 +31,23 @@ class CardGame {
         System.out.println("Please enter location of pack to load:");
         fileName = scanner.next();
         assertNotNull(fileName);
+
+        int counter = 0;
+        // read each line and
+        // count number of lines
+        try {
+            File file = new File(fileName);
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+                sc.nextLine();
+                counter++;
+            }
+            sc.close();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        assertEquals(counter%8, 0);
     }
 
     /**
@@ -75,9 +97,11 @@ class CardGame {
         while(!winningBool){
             System.out.println("Running");
         }
+
         for (Thread t : threads){
             t.interrupt();
         }
+
         for (Player p : playerList) {
             if (p.isWinner()) {
                 try {

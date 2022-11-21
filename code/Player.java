@@ -1,10 +1,11 @@
+package code;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-class Player implements Runnable {
+public class Player implements Runnable{
     private int id;
     private String logFileName = "player" + id + "output.txt"; // this is not used...
     public File outputFile;
@@ -36,18 +37,18 @@ class Player implements Runnable {
     }
 
     /**
-     * @return String
-     */
-    public String getLogFileName() {
-        return logFileName;
-    }
+    //  * @return String
+    //  */
+    // public String getLogFileName() {
+    //     return logFileName;
+    // }
 
-    /**
-     * @param logFileName
-     */
-    public void setLogFileName(String logFileName) {
-        this.logFileName = logFileName;
-    }
+    // /**
+    //  * @param logFileName
+    //  */
+    // public void setLogFileName(String logFileName) {
+    //     this.logFileName = logFileName;
+    // }
 
     /**
      * @return File
@@ -144,13 +145,6 @@ class Player implements Runnable {
         int localTopCard = CardDeck.deckList.get(id - 1).getTopCard();
         cardHand.add(localTopCard);
         writeToLogFile(outputFile, "player " + this.id + " draws a " + localTopCard + " from deck " + this.id);
-
-        ArrayList<Integer> tempDeck = CardDeck.deckList.get(id - 1).getDeckOfCards();
-
-        // for (int i : tempDeck) {
-        //     writeToLogFile(deckOutputFile,
-        //             "deck" + id + " contents: " + tempDeck.get(i));
-        // }
     }
 
     public synchronized void discardCard() throws IOException {
@@ -173,22 +167,9 @@ class Player implements Runnable {
             }
         }
         checkHand();
-        // System.out.println("player " + this.id + " current hand " + cardHand.get(0) +
-        // " " + cardHand.get(1) + " "
-        // + cardHand.get(2) + " " + cardHand.get(3));
-        // System.out.println("a Deck " + deckId + CardDeck.deckList.get(deckId -
-        // 1).getDeckOfCards().toString());
-
         writeToLogFile(outputFile,
                 "player " + this.id + " current hand " + cardHand.get(0) + " " + cardHand.get(1) + " "
                         + cardHand.get(2) + " " + cardHand.get(3));
-
-        ArrayList<Integer> tempDeck = CardDeck.deckList.get(id - 1).getDeckOfCards();
-
-        // for (int i : tempDeck) {
-        //     writeToLogFile(deckOutputFile,
-        //             "deck" + id + " contents: " + tempDeck.get(i));
-        // }
     }
 
     public void writeToLogFile(File fileName, String data) throws IOException {

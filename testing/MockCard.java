@@ -1,3 +1,5 @@
+package testing;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,27 +8,19 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-class Card {
+public class MockCard implements CardInterface{
     private ArrayList<Integer> packOfCards = new ArrayList<>();
 
-    
-    /** 
-     * @return ArrayList<Integer>
-     * @throws IOException
-     */
     public ArrayList<Integer> getPackOfCards() throws IOException {
         return this.packOfCards;
     }
 
+    public void resetPackOfCards(){
+        this.packOfCards = null;
+    }
     
-    /** 
-     * @param fileName
-     * @param playerCount
-     * @throws NumberFormatException
-     * @throws IOException
-     */
+    @Override
     public void setPackOfCards(String fileName, int playerCount) throws NumberFormatException, IOException {
-
         ArrayList<Integer> packOfCards = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         Boolean flag = true;
@@ -65,7 +59,4 @@ class Card {
         }
     }
 
-
-    }
-
-
+}

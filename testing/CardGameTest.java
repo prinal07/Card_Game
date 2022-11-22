@@ -216,10 +216,12 @@ public class CardGameTest {
     }
 
     public void checkValidWinner(){
+        assertTrue("Private winner attribute not set to true", MockCardGame.playerList.get(mockCardGame.getWinnerId()-1).isWinner());
         assertEquals(mockCardGame.getWinnerId(), 1);
     }
 
     public void checkValidLosers(){
+        assertFalse("Private winner attribute not set to false", MockCardGame.playerList.get(mockCardGame.getWinnerId()-1).isWinner());
         assertEquals(mockCard, fileName);
     }
 

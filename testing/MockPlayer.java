@@ -16,6 +16,7 @@ public class MockPlayer extends Thread implements PlayerInterface {
     private int playerCount;
     private boolean winner = false;
 
+
     @Override
     public boolean isWinner() {
         return winner;
@@ -86,6 +87,7 @@ public class MockPlayer extends Thread implements PlayerInterface {
         writeToLogFile(deckOutputFile,
                 "deck" + id + " contents: " + tempDeck.toString());
         System.out.println("player " + this.id + " wins");
+        this.winner = true;
 
     }
 

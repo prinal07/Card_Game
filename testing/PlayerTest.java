@@ -20,6 +20,7 @@ public class PlayerTest {
 
     @Test
     public void correctNumberOfPlayersCreated() throws NumberFormatException, IOException {
+        cardGame.resetPlayerList();
         cardGame.setPlayerCount(4);
         card = new MockCard();
         card.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", 4);

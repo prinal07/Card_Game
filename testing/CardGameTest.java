@@ -204,29 +204,15 @@ public class CardGameTest {
         assertArrayEquals(deck4.getDeckOfCards().toArray(), player4Deck);       
     }
 
-    @Test
-    public void testPlayGame() throws NumberFormatException, IOException{
-        mockCard.resetPackOfCards();
-        mockCardGame.setFileName("valid.txt");
-        mockCardGame.setPlayerCount(4);
-        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", 4);
-        
-        mockCardGame.dealing(mockCard);
-        MockCardGame.playGame();
-    }
-
-    public void checkValidWinner(){
-        assertTrue("Private winner attribute not set to true", MockCardGame.playerList.get(mockCardGame.getWinnerId()-1).isWinner());
-        assertEquals(mockCardGame.getWinnerId(), 1);
-    }
-
-    public void checkValidLosers(){
-        assertFalse("Private winner attribute not set to false", MockCardGame.playerList.get(mockCardGame.getWinnerId()-1).isWinner());
-        assertEquals(mockCard, fileName);
-    }
-
     public void checkValidWinnerAtDealing(){
 
+    }
+
+    @Test
+    public void testPlayGame() throws NumberFormatException, IOException{
+        mockCardGame.setFileName("valid.txt");
+        mockCardGame.setPlayerCount(4);
+        MockCardGame.playGame();
     }
 
     @Test

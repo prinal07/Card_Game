@@ -27,28 +27,5 @@ public class CardDeckTest {
 
     }
 
-    @Test
-    public void testGetDeckOfCards2() {
-        
-    }
-
-    @Test
-    public void testGetId2() {
-        
-    }
-
-    @Test
-    public void testSetDeckOfCards2() {
-        
-    }
-
-    @Test
-    public void testSetId2() {
-        
-    }
-
-    @Test
-    public void testTakeMineDeck2() {
-        
-    }
+   
 }

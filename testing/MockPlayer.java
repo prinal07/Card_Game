@@ -84,8 +84,7 @@ public class MockPlayer extends Thread implements PlayerInterface {
 
         ArrayList<Integer> tempDeck = MockCardDeck.deckList.get(id - 1).getDeckOfCards();
         writeToLogFile(deckOutputFile,
-                "deck" + id + " contents: " + tempDeck.get(0) + " "
-                        + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));
+                "deck" + id + " contents: " + tempDeck.toString());
         System.out.println("player " + this.id + " wins");
 
     }
@@ -198,8 +197,11 @@ public class MockPlayer extends Thread implements PlayerInterface {
 
         ArrayList<Integer> tempDeck = MockCardDeck.deckList.get(id - 1).getDeckOfCards();
         writeToLogFile(deckOutputFile,
-                "deck" + id + " contents: " + tempDeck.get(0) + " "
-                        + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));
+        "deck" + id + " contents: " + tempDeck.toString());
+    }
+
+    public ArrayList<Integer> returnMyHand(){
+        return this.cardHand;
     }
 
 }

@@ -16,46 +16,15 @@ import code.Player;
 
 public class PlayerTest {
     public MockCardGame cardGame = new MockCardGame();
+    public MockCard card;
 
     @Test
-    public void testGetId() {
-
-    }
-
-    @Test
-    public void testGetLogFileName() {
-
-    }
-
-    @Test
-    public void testGetOutputFile() {
-
-    }
-
-    @Test
-    public void testSetLogFileName() {
-
-    }
-
-    @Test
-    public void testSetOutputFile() {
-
-    }
-
-    @Test
-    public void testTakeMine() {
-
-    }
-
-    @Before
-    public void setupForPlayerCreation() throws NumberFormatException, IOException {
-        MockCard card = new MockCard();
-        card.setPackOfCards("valid.txt", 4);
+    public void correctNumberOfPlayersCreated() throws NumberFormatException, IOException {
+        cardGame.setPlayerCount(4);
+        card = new MockCard();
+        card.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", 4);
         cardGame.dealing(card);
-    }
-
-    @Test
-    public void correctNumberOfPlayersCreated() {
+        assertEquals(cardGame.getPlayerCount(), 4);
         assertEquals(MockCardGame.playerList.size(), 4);
     }
 
@@ -69,12 +38,18 @@ public class PlayerTest {
     }
 
     @Test
-    
-
-    @After
     public void resetForPlayerCreation() {
         cardGame.resetDealing();
     }
+
+    @Test
+    public void checkIfFilesAreCreatedProperly(){
+        //WILL HAVE TO RUN THE PLAYGAME METHOD HERE... FIRST FINISH THAT.
+    }
+
+    
+
+
 
 
 }

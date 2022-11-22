@@ -1,5 +1,6 @@
 package testing;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -150,6 +151,80 @@ public class CardGameTest {
     @Test 
     public void resetDealing(){
         mockCardGame.resetDealing();
+    }
+
+    @Test 
+    public void checkDealtCards() throws IOException{
+        MockCard newCard = new MockCard();
+        mockCardGame.resetPlayerList();
+
+        mockCardGame.setFileName("valid.txt");
+        mockCardGame.setPlayerCount(4);
+
+        newCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", mockCardGame.playerCount);
+        
+        mockCardGame.dealing(newCard);
+        ArrayList<MockPlayer> localPlayerList = MockCardGame.playerList;
+        Object [] player1Hand = {1, 5, 9, 13};
+        Object [] player2Hand = {2, 6, 1, 14};
+        Object [] player3Hand = {3, 7, 11, 15};
+        Object [] player4Hand = {4, 8, 12, 16};
+
+        Object[] hand1Array = localPlayerList.get(0).returnMyHand().toArray();
+        Object[] hand2Array = localPlayerList.get(1).returnMyHand().toArray();
+        Object[] hand3Array = localPlayerList.get(2).returnMyHand().toArray();
+        Object[] hand4Array = localPlayerList.get(3).returnMyHand().toArray();
+
+        assertArrayEquals(hand1Array, player1Hand);        
+        assertArrayEquals(hand2Array, player2Hand);        
+        assertArrayEquals(hand3Array, player3Hand);        
+        assertArrayEquals(hand4Array, player4Hand);        
+    }
+
+    @Test
+    public void checkDealtDecks(){
+        MockCardDeck deck1 = MockCardDeck.deckList.get(0);
+        MockCardDeck deck2 = MockCardDeck.deckList.get(1);
+        MockCardDeck deck3 = MockCardDeck.deckList.get(2);
+        MockCardDeck deck4 = MockCardDeck.deckList.get(3);
+
+        assertNotNull(deck1);
+        assertNotNull(deck2);
+        assertNotNull(deck3);
+        assertNotNull(deck4);
+
+        Object [] player1Deck = {17, 21, 25, 29};
+        Object [] player2Deck = {18, 22, 26, 30};
+        Object [] player3Deck = {19, 23, 1, 31};
+        Object [] player4Deck = {1, 24, 28, 32};
+
+        assertArrayEquals(deck1.getDeckOfCards().toArray(), player1Deck);        
+        assertArrayEquals(deck2.getDeckOfCards().toArray(), player2Deck);        
+        assertArrayEquals(deck3.getDeckOfCards().toArray(), player3Deck);        
+        assertArrayEquals(deck4.getDeckOfCards().toArray(), player4Deck);       
+    }
+
+    @Test
+    public void testPlayGame() throws NumberFormatException, IOException{
+        mockCard.resetPackOfCards();
+        mockCardGame.setFileName("valid.txt");
+        mockCardGame.setPlayerCount(4);
+        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", 4);
+        
+        mockCardGame.dealing(mockCard);
+        MockCardGame.playGame();
+    }
+
+    public void checkValidWinner(){
+        assertEquals(mockCardGame.getWinnerId(), 1);
+    }
+
+    public void checkValidLosers(){
+        assertEquals(mockCard, fileName);
+    }
+
+    public void checkValidWinnerAtDealing(){
+
     }
 
     @Test

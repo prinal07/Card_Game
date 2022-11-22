@@ -8,15 +8,15 @@ import code.CardGame;
 import code.Player;
 
 public class MockCardGame implements CardGameInterface{
-    public Card card;
+    // public MockCard card;
     public int playerCount;
     public String fileName;
     public Scanner scanner = new Scanner(System.in);
-    public ArrayList<Integer> pack;
-    static ArrayList<Player> playerList = new ArrayList<>();
+    public ArrayList<Integer> pack = new ArrayList<>();
+    static ArrayList<MockPlayer> playerList = new ArrayList<>();
     public ArrayList<Thread> threads = new ArrayList<>();
-    public boolean winningBool = false;
-    public int winnerId;
+    public static boolean winningBool = false;
+    public static int winnerId;
 
     public void setPlayerCount(int i){
         this.playerCount = i;
@@ -55,7 +55,25 @@ public class MockCardGame implements CardGameInterface{
     public void inputData(){
     }
   
-    public void dealing(){
+    public void dealing(MockCard card) throws IOException{
+        pack = card.getPackOfCards();
+
+        for (int i = 1; i < playerCount + 1; i++) {
+            MockPlayer player = new MockPlayer(i, playerCount);
+            playerList.add(player);
+            player.takeMine(pack);
+
+            MockCardDeck cardDeck = new MockCardDeck(i);
+            MockCardDeck.deckList.add(cardDeck);
+            cardDeck.takeMineDeck(pack, playerCount);
+
+            for (int j: cardDeck.getDeckOfCards()){
+            System.out.println("TEST DECK CARDS" + j);
+            }
+            System.out.println("TEST DECK DONE");
+            player.checkHand();
+
+        }
     }
 
     public void setup(MockCard card) throws NumberFormatException, IOException{
@@ -63,6 +81,19 @@ public class MockCardGame implements CardGameInterface{
             card.setPackOfCards(this.fileName, this.playerCount);
         }
 
+    }
+
+    public void resetDealing(){
+        pack.clear();
+        for(int i = 1; i<playerCount + 1; i++){
+            MockPlayer a = playerList.get(i);
+            playerList.remove(a);
+            a = null;
+
+            MockCardDeck b = MockCardDeck.deckList.get(i);
+            MockCardDeck.deckList.remove(b);
+            b = null;
+        }
     }
 
     public static void playGame(){}

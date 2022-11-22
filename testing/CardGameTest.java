@@ -143,9 +143,13 @@ public class CardGameTest {
     }
 
     @Test
-    public void testDealing() {
-        mockCardGame.dealing();
-        
+    public void testDealing() throws IOException {
+        mockCardGame.dealing(mockCard);
+    }
+
+    @Test 
+    public void resetDealing(){
+        mockCardGame.resetDealing();
     }
 
     @Test

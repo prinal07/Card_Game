@@ -1,11 +1,14 @@
 package code;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Player implements Runnable{
+import testing.PlayerInterface;
+
+public class Player extends Thread implements PlayerInterface {
     private int id;
     private String logFileName = "player" + id + "output.txt"; // this is not used...
     public File outputFile;
@@ -15,10 +18,12 @@ public class Player implements Runnable{
     private int playerCount;
     private boolean winner = false;
 
+    @Override
     public boolean isWinner() {
         return winner;
     }
 
+    @Override
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
@@ -32,27 +37,30 @@ public class Player implements Runnable{
     /**
      * @return int
      */
-    public int getId() {
+    @Override
+    public int getMyId() {
         return id;
     }
 
     /**
-    //  * @return String
-    //  */
+     * // * @return String
+     * //
+     */
     // public String getLogFileName() {
-    //     return logFileName;
+    // return logFileName;
     // }
 
     // /**
-    //  * @param logFileName
-    //  */
+    // * @param logFileName
+    // */
     // public void setLogFileName(String logFileName) {
-    //     this.logFileName = logFileName;
+    // this.logFileName = logFileName;
     // }
 
     /**
      * @return File
      */
+    @Override
     public File getOutputFile() {
         return outputFile;
     }
@@ -60,6 +68,7 @@ public class Player implements Runnable{
     /**
      * @param outputFile
      */
+    @Override
     public void setOutputFile(File outputFile) {
         this.outputFile = outputFile;
     }
@@ -68,8 +77,9 @@ public class Player implements Runnable{
      * @param pack
      * @throws IOException
      */
+    @Override
     public void takeMine(ArrayList<Integer> pack) throws IOException {
-        int posTracker = this.getId() - 1;
+        int posTracker = this.getMyId() - 1;
         for (int i = 0; i < 4; i++) {
             this.cardHand.add(pack.get(posTracker));
             posTracker = posTracker + playerCount;
@@ -80,6 +90,7 @@ public class Player implements Runnable{
                         + cardHand.get(2) + " " + cardHand.get(3));
     }
 
+    @Override
     public synchronized void checkHand() throws IOException {
         Boolean flag = true;
         for (int y = 1; y <= cardHand.size() - 1; y++) {
@@ -95,6 +106,7 @@ public class Player implements Runnable{
         }
     }
 
+    @Override
     public void winner() throws IOException {
 
         writeToLogFile(outputFile, "player " + this.id + " wins");
@@ -104,13 +116,18 @@ public class Player implements Runnable{
                         + cardHand.get(2) + " " + cardHand.get(3));
 
         ArrayList<Integer> tempDeck = CardDeck.deckList.get(id - 1).getDeckOfCards();
+        // writeToLogFile(deckOutputFile,
+        // "deck" + id + " contents: " + tempDeck.get(0) + " "
+        // + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));
+        // System.out.println("player " + this.id + " wins");
+
         writeToLogFile(deckOutputFile,
-        "deck" + id + " contents: " + tempDeck.get(0) + " "
-        + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));
+                "deck" + id + " contents: " + tempDeck.toString());
         System.out.println("player " + this.id + " wins");
 
     }
 
+    @Override
     public void loser() throws IOException {
         writeToLogFile(outputFile, "player " + CardGame.winnerId + " has informed player " + this.id + " that player "
                 + CardGame.winnerId + " has won");
@@ -120,11 +137,16 @@ public class Player implements Runnable{
                         + cardHand.get(2) + " " + cardHand.get(3));
 
         ArrayList<Integer> tempDeck = CardDeck.deckList.get(id - 1).getDeckOfCards();
+        // writeToLogFile(deckOutputFile,
+        // "deck" + id + " contents: " + tempDeck.get(0) + " "
+        // + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));
+
         writeToLogFile(deckOutputFile,
-                "deck" + id + " contents: " + tempDeck.get(0) + " "
-                        + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));      
+                "deck" + id + " contents: " + tempDeck.toString());
+
     }
 
+    @Override
     public void createFile() {
         try {
             this.outputFile = new File("player" + this.id + "output.txt");
@@ -141,12 +163,14 @@ public class Player implements Runnable{
 
     }
 
+    @Override
     public synchronized void takeCard() throws IOException {
         int localTopCard = CardDeck.deckList.get(id - 1).getTopCard();
         cardHand.add(localTopCard);
         writeToLogFile(outputFile, "player " + this.id + " draws a " + localTopCard + " from deck " + this.id);
     }
 
+    @Override
     public synchronized void discardCard() throws IOException {
         int deckId;
         if (this.id == playerCount) {
@@ -172,6 +196,7 @@ public class Player implements Runnable{
                         + cardHand.get(2) + " " + cardHand.get(3));
     }
 
+    @Override
     public void writeToLogFile(File fileName, String data) throws IOException {
         BufferedWriter br;
         FileWriter fr = new FileWriter(fileName, true);
@@ -212,4 +237,5 @@ public class Player implements Runnable{
             }
         }
     }
+
 }

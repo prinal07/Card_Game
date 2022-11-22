@@ -1,15 +1,21 @@
 package testing;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import code.CardGame;
 import code.Player;
 
 public class PlayerTest {
-    public CardGameTest cardGame = new CardGameTest();
+    public MockCardGame cardGame = new MockCardGame();
 
     @Test
     public void testGetId() {
@@ -41,31 +47,34 @@ public class PlayerTest {
 
     }
 
-    @Test
-    public void playerListEmptySuccessfullyCreatingAPlayer() {
-        Player player = new Player(1, 4);
-        assertFalse("No players exist, but not successfully creating a player with proper id",
-                player.getId() < CardGameTest.playerListTest.size());
-        CardGameTest.playerListTest.add(player);
-    }
-
-    @Test
-    public void playerAddedSuccessfully() {
-        assertTrue("List is empty", CardGameTest.playerListTest.size() == 1);
-        assertNotNull(CardGameTest.playerListTest.get(0));
-        assertTrue("Incorrect id player was added",
-                CardGameTest.playerListTest.get(0).getId() == 1);
-    }
-
     @Before
-    public void emptyPlayerList() {
+    public void setupForPlayerCreation() throws NumberFormatException, IOException {
+        MockCard card = new MockCard();
+        card.setPackOfCards("valid.txt", 4);
+        cardGame.dealing(card);
     }
 
     @Test
-    public void playerListEmptyCreatingFalseIdPlayer() {
-        CardGameTest.playerListTest.clear();
-        Player player = new Player(2, 4);
-        assertTrue("Player cannot be created with this id, players with previous ids have not been created",
-                player.getId()-1 < CardGameTest.playerListTest.size());
+    public void correctNumberOfPlayersCreated() {
+        assertEquals(MockCardGame.playerList.size(), 4);
     }
+
+    @Test
+    public void correctPlayerIds() {
+        int ctr = 1;
+        for (MockPlayer p : MockCardGame.playerList) {
+            assertEquals(p.getMyId(), ctr);
+            ctr++;
+        }
+    }
+
+    @Test
+    
+
+    @After
+    public void resetForPlayerCreation() {
+        cardGame.resetDealing();
+    }
+
+
 }

@@ -6,21 +6,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.swing.plaf.multi.MultiColorChooserUI;
-
 import org.junit.*;
-
-import code.Card;
-import code.CardGame;
-import code.Player;
 
 public class CardGameTest {
     public MockCardGame mockCardGame = new MockCardGame();
@@ -40,7 +32,7 @@ public class CardGameTest {
         // read each line and
         // count number of lines
         try {
-            File file = new File("valid.txt");
+            File file = new File("winner1.txt");
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {
@@ -51,8 +43,8 @@ public class CardGameTest {
         } catch (Exception e) {
             e.getStackTrace();
         }
-        mockCardGame.setFileName("valid.txt");
-        assertNotNull("valid.txt");
+        mockCardGame.setFileName("winner1.txt");
+        assertNotNull("winner1.txt");
         assertEquals(counter%8, 0);
 
         mockCardGame.resetFileName();
@@ -63,7 +55,6 @@ public class CardGameTest {
 
     @Test
     public void clearInputData() {
-        //mockCardGame.resetPlayerCount();
         mockCardGame.resetFileName();
     }
 
@@ -77,7 +68,7 @@ public class CardGameTest {
         // read each line and
         // count number of lines
         try {
-            File file = new File("invalid.txt");
+            File file = new File("winner1.txt");
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {
@@ -88,7 +79,7 @@ public class CardGameTest {
         } catch (Exception e) {
             e.getStackTrace();
         }
-        mockCardGame.setFileName("invalid.txt");
+        mockCardGame.setFileName("winner1.txt");
         assertNotEquals(count, 8*mockCardGame.playerCount);
     }
 
@@ -106,8 +97,7 @@ public class CardGameTest {
         ArrayList<Integer> temp = mockCard.getPackOfCards();
         mockCardGame.resetFileName();
         mockCardGame.resetPlayerCount();
-        mockCardGame.setFileName("C:/Users/prina/Desktop/Card_Game/valid6.txt");
-        // have to enter complete path for it to find file?
+        mockCardGame.setFileName("textFiles/winner6.txt");
         mockCardGame.setPlayerCount(6);
         mockCardGame.setup(mockCard);
         assertNotEquals(mockCard.getPackOfCards(), temp); 
@@ -117,10 +107,10 @@ public class CardGameTest {
     public void cardWithValidData() throws IOException{
         mockCard.resetPackOfCards();
 
-        mockCardGame.setFileName("valid.txt");
+        mockCardGame.setFileName("winner1.txt");
         mockCardGame.setPlayerCount(4);
 
-        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", 4);
+        mockCard.setPackOfCards("winner1.txt", 4);
         assertEquals(32, mockCard.getPackOfCards().size()); 
     }
 
@@ -128,10 +118,10 @@ public class CardGameTest {
     public void cardWithInvalidData() throws NumberFormatException, IOException{
         mockCard.resetPackOfCards();
 
-        mockCardGame.setFileName("valid6.txt");
+        mockCardGame.setFileName("winner6.txt");
         mockCardGame.setPlayerCount(4);
 
-        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid6.txt", 4);
+        mockCard.setPackOfCards("winner6.txt", 4);
         //to check if the pack of cards was set even though player count does not correspond with number of lines.
         assertNull(mockCard.getPackOfCards()); 
     }
@@ -139,7 +129,7 @@ public class CardGameTest {
     @Test
     public void fileExists() {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        File file = new File(classLoader.getResource("valid.txt").getFile());
+        File file = new File(classLoader.getResource("winner1.txt").getFile());
         assertTrue(file.exists());
     }
 
@@ -158,10 +148,10 @@ public class CardGameTest {
         MockCard newCard = new MockCard();
         mockCardGame.resetPlayerList();
 
-        mockCardGame.setFileName("valid.txt");
+        mockCardGame.setFileName("winner1.txt");
         mockCardGame.setPlayerCount(4);
 
-        newCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", mockCardGame.playerCount);
+        newCard.setPackOfCards("winner1.txt", mockCardGame.playerCount);
         
         mockCardGame.dealing(newCard);
         ArrayList<MockPlayer> localPlayerList = MockCardGame.playerList;
@@ -204,20 +194,20 @@ public class CardGameTest {
         assertArrayEquals(deck4.getDeckOfCards().toArray(), player4Deck);       
     }
 
-    public void checkValidWinnerAtDealing(){
+    public void checkValidWinnerAtDealing() throws NumberFormatException, IOException{
+        MockCard newCard = new MockCard();
+        mockCardGame.resetPlayerList();
 
-    }
-
-    @Test
-    public void testPlayGame() throws NumberFormatException, IOException{
-        mockCardGame.setFileName("valid.txt");
+        mockCardGame.setFileName("winningHand.txt");
         mockCardGame.setPlayerCount(4);
-        MockCardGame.playGame();
+
+        newCard.setPackOfCards("winningHand.txt", mockCardGame.playerCount);
+        mockCardGame.dealing(newCard);
+
+        assertTrue("Player boolean of winning should be true, but isn't", MockCardGame.playerList.get(0).isWinner());
+        assertFalse("Player boolean of winning should be false, but isn't", MockCardGame.playerList.get(1).isWinner());
+        assertFalse("Player boolean of winning should be false, but isn't", MockCardGame.playerList.get(2).isWinner());
+        assertFalse("Player boolean of winning should be false, but isn't", MockCardGame.playerList.get(3).isWinner());
+
     }
-
-    @Test
-    public void testMain() {
-
-    }
-
 }

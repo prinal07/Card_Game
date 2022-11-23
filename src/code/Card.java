@@ -1,4 +1,4 @@
-package code;
+package src.code;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -41,6 +41,9 @@ public class Card implements CardInterface{
             lineCount++;
         }
 
+        br.close();
+        
+
 
         while(flag == true && lineCount == (8*playerCount)){
             try{
@@ -65,6 +68,7 @@ public class Card implements CardInterface{
 
             }
         }
+        sc.close();
     }
 
 

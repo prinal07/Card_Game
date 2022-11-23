@@ -1,5 +1,4 @@
-package code;
-
+package src.code;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,10 +9,8 @@ import testing.PlayerInterface;
 
 public class Player extends Thread implements PlayerInterface {
     private int id;
-    private String logFileName = "player" + id + "output.txt"; // this is not used...
     public File outputFile;
     public File deckOutputFile;
-    private String deckFileName = "deck" + id;
     private ArrayList<Integer> cardHand = new ArrayList<>();
     private int playerCount;
     private boolean winner = false;
@@ -41,22 +38,6 @@ public class Player extends Thread implements PlayerInterface {
     public int getMyId() {
         return id;
     }
-
-    /**
-     * // * @return String
-     * //
-     */
-    // public String getLogFileName() {
-    // return logFileName;
-    // }
-
-    // /**
-    // * @param logFileName
-    // */
-    // public void setLogFileName(String logFileName) {
-    // this.logFileName = logFileName;
-    // }
-
     /**
      * @return File
      */
@@ -116,11 +97,6 @@ public class Player extends Thread implements PlayerInterface {
                         + cardHand.get(2) + " " + cardHand.get(3));
 
         ArrayList<Integer> tempDeck = CardDeck.deckList.get(id - 1).getDeckOfCards();
-        // writeToLogFile(deckOutputFile,
-        // "deck" + id + " contents: " + tempDeck.get(0) + " "
-        // + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));
-        // System.out.println("player " + this.id + " wins");
-
         writeToLogFile(deckOutputFile,
                 "deck" + id + " contents: " + tempDeck.toString());
         System.out.println("player " + this.id + " wins");
@@ -137,10 +113,6 @@ public class Player extends Thread implements PlayerInterface {
                         + cardHand.get(2) + " " + cardHand.get(3));
 
         ArrayList<Integer> tempDeck = CardDeck.deckList.get(id - 1).getDeckOfCards();
-        // writeToLogFile(deckOutputFile,
-        // "deck" + id + " contents: " + tempDeck.get(0) + " "
-        // + tempDeck.get(1) + " " + tempDeck.get(2) + " " + tempDeck.get(3));
-
         writeToLogFile(deckOutputFile,
                 "deck" + id + " contents: " + tempDeck.toString());
 
@@ -181,7 +153,6 @@ public class Player extends Thread implements PlayerInterface {
 
         for (int i = 0; i < cardHand.size(); i++) {
             if (cardHand.get(i) != id) {
-                // System.out.print("Player" + id + " discarded " + cardHand.get(i));
                 int discardedCard = cardHand.get(i);
                 writeToLogFile(outputFile,
                         "player " + this.id + " discards a " + discardedCard + " to deck " + (deckId));

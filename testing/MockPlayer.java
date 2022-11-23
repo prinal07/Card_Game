@@ -8,10 +8,8 @@ import java.util.ArrayList;
 
 public class MockPlayer extends Thread implements PlayerInterface {
     private int id;
-    private String logFileName = "player" + id + "output.txt"; // this is not used...
     public File outputFile;
     public File deckOutputFile;
-    private String deckFileName = "deck" + id;
     private ArrayList<Integer> cardHand = new ArrayList<>();
     private int playerCount;
     private boolean winner = false;
@@ -97,7 +95,6 @@ public class MockPlayer extends Thread implements PlayerInterface {
             this.outputFile = new File("TESTPlayer" + this.id + "output.txt");
             this.deckOutputFile = new File("TESTdeck" + this.id + "_output.txt");
             if (outputFile.createNewFile()) {
-                // System.out.println("File created: " + outputFile.getName());
             } else {
                 System.out.println("File already exists.");
             }
@@ -125,7 +122,6 @@ public class MockPlayer extends Thread implements PlayerInterface {
 
         for (int i = 0; i < cardHand.size(); i++) {
             if (cardHand.get(i) != id) {
-                // System.out.print("Player" + id + " discarded " + cardHand.get(i));
                 int discardedCard = cardHand.get(i);
                 writeToLogFile(outputFile,
                         "player " + this.id + " discards a " + discardedCard + " to deck " + (deckId));

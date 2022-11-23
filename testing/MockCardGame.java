@@ -1,17 +1,11 @@
 package testing;
 
 import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import code.Card;
-import code.CardGame;
-import code.Player;
 
 public class MockCardGame implements CardGameInterface {
-    // public MockCard card;
     public int playerCount;
     public String fileName;
     public Scanner scanner = new Scanner(System.in);

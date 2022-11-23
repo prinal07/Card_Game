@@ -1,14 +1,9 @@
 package testing;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
-
 import org.junit.Test;
-
-import code.*;
 
 public class ThreadTest {
     public MockCardGame mockCardGame;
@@ -17,21 +12,25 @@ public class ThreadTest {
     public String fileName;
 
     @Test
-    public void testPlayGame() throws NumberFormatException, IOException{
+     public void beforePlayGame() throws NumberFormatException, IOException{
         mockCardGame = new MockCardGame();
         mockCard = new MockCard();
-        mockCardGame.setFileName("valid.txt");
+        mockCardGame.setFileName("winner1.txt");
         mockCardGame.setPlayerCount(4);
-        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/valid.txt", 4);
-        
+        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/winner1.txt", 4);
         mockCardGame.dealing(mockCard);
+    }
+
+    @Test
+    public void testPlayGame() throws NumberFormatException, IOException{
         MockCardGame.playGame();
     }
 
     @Test
     public void checkValidWinner(){
-        assertTrue("Private winner attribute not set to true", MockCardGame.playerList.get((mockCardGame.getWinnerId()-1)).isWinner());
         assertEquals(mockCardGame.getWinnerId(), 1);
+        assertEquals(MockCardGame.playerList.get((mockCardGame.getWinnerId()-1)).isWinner(), true);
+        assertTrue("Private winner attribute not set to true", MockCardGame.playerList.get((mockCardGame.getWinnerId()-1)).isWinner());
     }
 
     @Test
@@ -40,7 +39,4 @@ public class ThreadTest {
         assertFalse("Private winner attribute not set to false", MockCardGame.playerList.get(2).isWinner());
         assertFalse("Private winner attribute not set to false", MockCardGame.playerList.get(3).isWinner());
     }
-
-        
-
 }

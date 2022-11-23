@@ -42,8 +42,6 @@ public class MockCardDeck implements CardDeckInterface{
     @Override
     public void addToDeck(int discardedCard){
         this.deckOfCards.add(discardedCard);
-        //System.out.println("Deck "+this.getId()+" "+this.deckOfCards.toString());
-
     }
 
     /** 

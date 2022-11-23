@@ -1,4 +1,4 @@
-package code;
+package src.code;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -21,7 +21,6 @@ public class CardGame implements CardGameInterface{
     static ArrayList<Thread> threads = new ArrayList<>();
     static boolean winningBool = false;
     static int winnerId;
-    // static boolean gameRunning;
 
     public static void inputData() {
         System.out.println("Please enter the number of players:");
@@ -66,10 +65,10 @@ public class CardGame implements CardGameInterface{
             CardDeck.deckList.add(cardDeck);
             cardDeck.takeMineDeck(pack, playerCount);
 
-            for (int j: cardDeck.getDeckOfCards()){
-            System.out.println("DECK CARDS" + j);
-            }
-            System.out.println("DECK DONE");
+            // for (int j: cardDeck.getDeckOfCards()){
+            // System.out.println("DECK CARDS" + j);
+            // }
+            // System.out.println("DECK DONE");
             player.checkHand();
 
         }

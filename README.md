@@ -11,3 +11,6 @@ This a multi-threaded card playing simulation in Java. It has a thread-safe impl
   - PlayerTest.java
   - ThreadTest.java
 5. If ran together, may face issues while running ThreadTest. Hence, run ThreadTest separately if issue persists.
+
+# Running
+To run just simply look for the play button in your IDE and run CardGame.java.

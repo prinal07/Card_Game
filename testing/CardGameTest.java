@@ -97,7 +97,7 @@ public class CardGameTest {
         ArrayList<Integer> temp = mockCard.getPackOfCards();
         mockCardGame.resetFileName();
         mockCardGame.resetPlayerCount();
-        mockCardGame.setFileName("textFiles/winner6.txt");
+        mockCardGame.setFileName("C:/Users/prina/Desktop/Card_Game/winner6.txt");
         mockCardGame.setPlayerCount(6);
         mockCardGame.setup(mockCard);
         assertNotEquals(mockCard.getPackOfCards(), temp); 
@@ -110,7 +110,7 @@ public class CardGameTest {
         mockCardGame.setFileName("winner1.txt");
         mockCardGame.setPlayerCount(4);
 
-        mockCard.setPackOfCards("winner1.txt", 4);
+        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/winner1.txt", 4);
         assertEquals(32, mockCard.getPackOfCards().size()); 
     }
 
@@ -121,7 +121,7 @@ public class CardGameTest {
         mockCardGame.setFileName("winner6.txt");
         mockCardGame.setPlayerCount(4);
 
-        mockCard.setPackOfCards("winner6.txt", 4);
+        mockCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/winner6.txt", 4);
         //to check if the pack of cards was set even though player count does not correspond with number of lines.
         assertNull(mockCard.getPackOfCards()); 
     }
@@ -151,7 +151,7 @@ public class CardGameTest {
         mockCardGame.setFileName("winner1.txt");
         mockCardGame.setPlayerCount(4);
 
-        newCard.setPackOfCards("winner1.txt", mockCardGame.playerCount);
+        newCard.setPackOfCards("C:/Users/prina/Desktop/Card_Game/winner1.txt", mockCardGame.playerCount);
         
         mockCardGame.dealing(newCard);
         ArrayList<MockPlayer> localPlayerList = MockCardGame.playerList;

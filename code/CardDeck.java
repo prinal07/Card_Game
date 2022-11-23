@@ -1,4 +1,4 @@
-package src.code;
+package code;
 import java.util.ArrayList;
 
 import testing.CardDeckInterface;

@@ -22,20 +22,20 @@ public class MockCard implements CardInterface{
     @Override
     public void setPackOfCards(String fileName, int playerCount) throws NumberFormatException, IOException {
         ArrayList<Integer> packOfCards = new ArrayList<>();
-        // BufferedReader br = new BufferedReader(new FileReader(fileName));
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
         Boolean flag = true;
         int lineCount = 0;
 
         File file = new File(fileName);
         Scanner sc = new Scanner(file);
 
-        while (sc.hasNextLine()){
-            lineCount++;
-        }
-
-        // while (br.readLine() != null) {
+        // while (sc.hasNextLine()){
         //     lineCount++;
         // }
+
+        while (br.readLine() != null) {
+            lineCount++;
+        }
 
 
         while(flag == true && lineCount == (8*playerCount)){
